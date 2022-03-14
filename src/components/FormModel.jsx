@@ -32,8 +32,6 @@ const FormModel = (props) => {
     setCurrentUser(user || defaultUser);
   }, [show, user]);
 
-  console.log(currentUser);
-
   const handleClose = () => setShow(false);
   return (
     <>

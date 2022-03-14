@@ -11,11 +11,14 @@ const UserDetails = (props) => {
   const user = props;
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
-  console.log('user');
-  console.log(user);
 
   const updateUser = (user) => {
-    setUsers((currentUsers) => [...currentUsers, { ...user }]);
+    setUsers((currentUsers) => {
+      const userIndex = currentUsers.findIndex((u) => u.id === user.id);
+      currentUsers.splice(userIndex, 1, user);
+      return [...currentUsers];
+    });
+
     setShow(false);
   };
 
