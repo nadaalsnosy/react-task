@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import UsersModule from "./modules/UsersModule";
+import { Spinner } from "react-bootstrap";
 
-function App() {
+import "./App.scss";
+
+const Home = lazy(() => import("./pages/Home"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense
+      fallback={
+        <div className="d-flex justify-content-center align-items-center spiner-div">
+          <Spinner animation="border" variant="primary big-spinner" />
+        </div>
+      }
+    >
+      <div className="App">
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="signIn/" element={<SignIn />} />
+            <Route path="signUp/" element={<SignUp />} />
+            <Route path="users/*" element={<UsersModule />} />
+            <Route path="*" element={<div>404 - NotFound</div>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Suspense>
   );
-}
+};
 
 export default App;

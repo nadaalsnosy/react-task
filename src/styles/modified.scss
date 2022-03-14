@@ -1,0 +1,20 @@
+.navbar-light .navbar-nav .nav-link {
+  color: #000000;
+}
+
+.navbar-collapse {
+  flex-grow: unset !important;
+}
+.bg-white:hover {
+  background: #ececec !important;
+}
+.modal-header .btn-close {
+  margin: 0;
+}
+
+.big-spinner {
+  width: 4rem;
+  height: 4rem;
+  border: 0.6rem solid currentColor;
+  border-right-color: transparent;
+}
