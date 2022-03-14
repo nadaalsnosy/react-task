@@ -10,12 +10,20 @@ const UsersModule = () => {
   const [users, setUsers] = useState();
 
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-      const usersData = res.data;
-      usersData.map((u) => (u.id = `${u.id}userId`));
-      setUsers(res.data);
-    });
+    const localUsers = localStorage.getItem("users");
+    if (localUsers) {
+      setUsers(JSON.parse(localUsers));
+    } else
+      axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+        const usersData = res.data;
+        usersData.map((u) => (u.id = `${u.id}userId`));
+        setUsers(res.data);
+      });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
 
   const contextValue = useMemo(
     () => ({

@@ -11,7 +11,7 @@ const defaultUser = {
     street: "",
     suite: "",
   },
-};;
+};
 
 const FormModel = (props) => {
   const { onSubmit, show, setShow, user } = props;
@@ -21,6 +21,11 @@ const FormModel = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCurrentUser((u) => ({ ...u, [name]: value }));
+  };
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentUser((u) => ({ ...u, address: { ...u.address, [name]: value } }));
   };
 
   const handleSubmit = (event) => {
@@ -84,7 +89,7 @@ const FormModel = (props) => {
                   placeholder="city"
                   name="city"
                   value={currentUser.address.city}
-                  onChange={handleChange}
+                  onChange={handleAddressChange}
                 />
               </Form.Group>
 
@@ -95,7 +100,7 @@ const FormModel = (props) => {
                   placeholder="street"
                   name="street"
                   value={currentUser.address.street}
-                  onChange={handleChange}
+                  onChange={handleAddressChange}
                 />
               </Form.Group>
 
@@ -106,7 +111,7 @@ const FormModel = (props) => {
                   placeholder="suite"
                   name="suite"
                   value={currentUser.address.suite}
-                  onChange={handleChange}
+                  onChange={handleAddressChange}
                 />
               </Form.Group>
             </Row>
