@@ -3,14 +3,21 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import FormModel from "./FormModel";
+import ConfirmForm from "./ConfirmForm";
+import { useNavigate } from "react-router-dom";
+
 import { UsersContext } from "../modules/UsersModule";
 
 const UserDetails = (props) => {
   const { setUsers } = useContext(UsersContext);
-
   const user = props;
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+
+  const [showForm, setShowForm] = useState(false);
+  const handleShowForm = () => setShowForm(true);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const handleShowConfirm = () => setShowConfirm(true);
 
   const updateUser = (user) => {
     setUsers((currentUsers) => {
@@ -19,7 +26,17 @@ const UserDetails = (props) => {
       return [...currentUsers];
     });
 
-    setShow(false);
+    setShowForm(false);
+  };
+
+  const deleteUser = (user) => {
+    setUsers((currentUsers) => {
+      const newUsers = currentUsers.filter((u) => u.id !== user.id);
+      return [...newUsers];
+    });
+
+    setShowConfirm(false);
+    navigate("/users");
   };
 
   return (
@@ -40,10 +57,12 @@ const UserDetails = (props) => {
               <Button variant="secondary">Go Back</Button>
             </Link>
             <div>
-              <Button variant="primary mx-4" onClick={handleShow}>
+              <Button variant="primary mx-4" onClick={handleShowForm}>
                 Edit
               </Button>
-              <Button variant="danger">Delete</Button>
+              <Button variant="danger" onClick={handleShowConfirm}>
+                Delete
+              </Button>
             </div>
           </div>
         </Card.Body>
@@ -51,8 +70,14 @@ const UserDetails = (props) => {
       <FormModel
         onSubmit={updateUser}
         user={user}
-        show={show}
-        setShow={setShow}
+        showForm={showForm}
+        setShowForm={setShowForm}
+      />
+      <ConfirmForm
+        onSubmit={deleteUser}
+        user={user}
+        showConfirm={showConfirm}
+        setShowConfirm={setShowConfirm}
       />
     </>
   );

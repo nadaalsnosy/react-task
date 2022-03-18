@@ -7,8 +7,8 @@ import { UsersContext } from "../modules/UsersModule";
 const AddNewUser = () => {
   const { setUsers } = useContext(UsersContext);
 
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
+  const [showForm, setShowForm] = useState(false);
+  const handleShowForm = () => setShowForm(true);
 
   
   const addUser = (user) => {
@@ -16,7 +16,7 @@ const AddNewUser = () => {
       ...currentUsers,
       { ...user, id: uuid() },
     ]);
-    setShow(false);
+    setShowForm(false);
   };
   
   return (
@@ -26,13 +26,13 @@ const AddNewUser = () => {
 
         <Button
           variant="primary bg-white text-primary fw-bold px-5"
-          onClick={handleShow}
+          onClick={handleShowForm}
         >
           Add User
         </Button>
       </div>
 
-      <FormModel onSubmit={addUser} show={show} setShow={setShow} />
+      <FormModel onSubmit={addUser} showForm={showForm} setShowForm={setShowForm} />
     </div>
   );
 };

@@ -14,7 +14,7 @@ const defaultUser = {
 };
 
 const FormModel = (props) => {
-  const { onSubmit, show, setShow, user } = props;
+  const { onSubmit, showForm, setShowForm, user } = props;
 
   const [currentUser, setCurrentUser] = useState(user || defaultUser);
 
@@ -35,13 +35,13 @@ const FormModel = (props) => {
 
   useEffect(() => {
     setCurrentUser(user || defaultUser);
-  }, [show, user]);
+  }, [showForm, user]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => setShowForm(false);
   return (
     <>
       <Form>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={showForm} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title className="m-auto text-orange">
               User Information

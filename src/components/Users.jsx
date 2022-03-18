@@ -7,7 +7,7 @@ const Users = () => {
   const { users } = useContext(UsersContext);
 
   return (
-    <>
+    <div className="container my-3">
       <Table striped bordered hover size="sm" className="container">
         <thead>
           <tr>
@@ -30,7 +30,7 @@ const Users = () => {
           )}
         </tbody>
       </Table>
-    </>
+    </div>
   );
 };
 

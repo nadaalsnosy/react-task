@@ -1,8 +1,22 @@
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const NavbarComp = () => {
+  const { auth, setAuth } = useAuth();
+
+  const handleLogOut = async (e) => {
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setAuth("");
+      console.log(auth);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Navbar className="bottom-shadow" bg="light" expand="lg">
@@ -18,25 +32,50 @@ const NavbarComp = () => {
               <Link className="nav-link" to={`/users`}>
                 Users
               </Link>
-              <Nav.Link href="">Offers</Nav.Link>
-              <Nav.Link href="">Contact Us</Nav.Link>
-
+              <Link className="nav-link" to={`/offers`}>
+                Offers
+              </Link>
+              <Link className="nav-link" to={`/contactUs`}>
+                Contact Us
+              </Link>
               <NavDropdown title="Currency" id="basic-nav-dropdown">
-                <NavDropdown.Item href="">Euro</NavDropdown.Item>
-                <NavDropdown.Item href="">Pound</NavDropdown.Item>
-                <NavDropdown.Item href="">Dollar</NavDropdown.Item>
+                <Link className="dropdown-item" to={`/currency/pound`}>
+                  Pound
+                </Link>
+                <Link className="dropdown-item" to={`/currency/euro`}>
+                  Euro
+                </Link>
+                <Link className="dropdown-item" to={`/currency/dollar`}>
+                  Dollar
+                </Link>
               </NavDropdown>
               <NavDropdown title="Language" id="basic-nav-dropdown">
-                <NavDropdown.Item href="">English</NavDropdown.Item>
-                <NavDropdown.Item href="">Arabic</NavDropdown.Item>
+                <Link className="dropdown-item" to={``}>
+                  English
+                </Link>
+                <Link className="dropdown-item" to={``}>
+                  Arabic
+                </Link>
+                <Link className="dropdown-item" to={``}>
+                  German
+                </Link>
               </NavDropdown>
-
-              <Link className="nav-link" to={`/signIn`}>
-                Sign In
-              </Link>
-              <Link className="nav-link" to={`/signUp`}>
-                Sign Up
-              </Link>
+              {auth?.token ? (
+                <Link className="nav-link" to={`/signIn`}>
+                  <span className="d-block" onClick={handleLogOut}>
+                    Sign Out
+                  </span>
+                </Link>
+              ) : (
+                <>
+                  <Link className="nav-link" to={`/signIn`}>
+                    Sign In
+                  </Link>
+                  <Link className="nav-link" to={`/signUp`}>
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

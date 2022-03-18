@@ -6,3 +6,15 @@
   border: 2px solid #dfdfdf;
   border-radius: 10px;
 }
+
+.errMsg {
+  color: #d10202;
+  font-size: 14px;
+  margin: 7px;
+}
+
+.errInput,
+.errInput:focus {
+  border-color: #ff00007a;
+  box-shadow: 0 0 0 4px #fd0d0d41;
+}

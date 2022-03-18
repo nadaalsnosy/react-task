@@ -11,6 +11,7 @@ const UsersModule = () => {
 
   useEffect(() => {
     const localUsers = localStorage.getItem("users");
+
     if (localUsers) {
       setUsers(JSON.parse(localUsers));
     } else
@@ -20,6 +21,14 @@ const UsersModule = () => {
         setUsers(res.data);
       });
   }, []);
+
+  // useEffect(() => {
+  //   axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+  //     const usersData = res.data;
+  //     usersData.map((u) => (u.id = `${u.id}userId`));
+  //     setUsers(res.data);
+  //   });
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
